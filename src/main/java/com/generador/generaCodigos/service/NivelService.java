@@ -58,4 +58,10 @@ public class NivelService {
 
         return String.join(" / ", ruta); // ✅ Retorna la ruta en formato "Raíz / Subnivel1 / Subnivel2"
     }
+
+    public int obtenerCantidadMaximaNiveles() {
+        return nivelRepository.obtenerCantidadMaximaNiveles();
+    }
+
+
 }

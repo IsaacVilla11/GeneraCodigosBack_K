@@ -51,8 +51,6 @@ public class NivelController {
         return ResponseEntity.ok(response);
     }
 
-
-
     // ✅ Obtiene los niveles que tienen un padre específico
     @GetMapping("/padre")
     public ResponseEntity<?> obtenerNivelesPorPadre(@RequestParam(required = false) Integer nivelPadreId) {
@@ -98,6 +96,12 @@ public class NivelController {
         }
         return ResponseEntity.notFound().build();
     }
+    @GetMapping("/cantidadMaxima")
+    public ResponseEntity<Integer> obtenerCantidadMaximaNiveles() {
+        int cantidadMaxima = nivelService.obtenerCantidadMaximaNiveles();
+        return ResponseEntity.ok(cantidadMaxima);
+    }
+
 
 
     // ✅ Crea un nuevo nivel
