@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/niveles")
-@CrossOrigin(origins = "http://localhost:3000")
 public class NivelController {
 
     private final NivelService nivelService;
@@ -107,8 +106,8 @@ public class NivelController {
     // ✅ Crea un nuevo nivel
     @PostMapping
     public ResponseEntity<Nivel> crearNivel(@RequestBody Nivel nivel) {
-        System.out.println("📥 Recibido: " + nivel.getCodigo() + ", Nivel Padre ID: " +
-                (nivel.getNivelPadre() != null ? nivel.getNivelPadre().getId() : "NULL"));
+        //System.out.println("Recibido: " + nivel.getCodigo() + ", Nivel Padre ID: " +
+               //(nivel.getNivelPadre() != null ? nivel.getNivelPadre().getId() : "NULL"));
 
         if (nivel.getNivelPadre() != null) {
             Optional<Nivel> padre = nivelService.obtenerNivelPorId(nivel.getNivelPadre().getId());
@@ -116,8 +115,8 @@ public class NivelController {
         }
 
         Nivel nuevoNivel = nivelService.guardarNivel(nivel);
-        System.out.println("✅ Nuevo nivel creado: " + nuevoNivel.getNombre() + " con padre: " +
-                (nuevoNivel.getNivelPadre() != null ? nuevoNivel.getNivelPadre().getNombre() : "Raíz"));
+        //System.out.println("Nuevo nivel creado: " + nuevoNivel.getNombre() + " con padre: " +
+          //      (nuevoNivel.getNivelPadre() != null ? nuevoNivel.getNivelPadre().getNombre() : "Raíz"));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoNivel);
     }
