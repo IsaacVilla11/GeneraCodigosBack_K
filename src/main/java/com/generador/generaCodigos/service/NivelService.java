@@ -30,7 +30,7 @@ public class NivelService {
         try {
             return nivelRepository.findByNivelPadreIsNull();
         } catch (Exception e) {
-            System.err.println("❌ Error al obtener niveles raíz: " + e.getMessage());
+            //System.err.println("❌ Error al obtener niveles raíz: " + e.getMessage());
             return List.of(); // ✅ Devuelve una lista vacía en lugar de romperse
         }
     }

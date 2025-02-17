@@ -63,7 +63,7 @@ public class NivelController {
             }
             return ResponseEntity.ok(niveles);
         } catch (Exception e) {
-            System.err.println("❌ Error en obtenerNivelesPorPadre: " + e.getMessage());
+            //System.err.println("❌ Error en obtenerNivelesPorPadre: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el servidor");
         }
     }
@@ -75,7 +75,7 @@ public class NivelController {
         Optional<Nivel> nivel = nivelService.obtenerNivelPorId(id);
         if (nivel.isPresent()) {
             // 📌 Verificar si el nivel padre se está enviando completo
-            System.out.println("📌 Nivel obtenido: " + nivel.get());
+            //System.out.println("📌 Nivel obtenido: " + nivel.get());
         }
         return nivel.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
