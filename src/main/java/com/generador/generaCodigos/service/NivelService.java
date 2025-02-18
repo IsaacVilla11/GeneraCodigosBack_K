@@ -31,7 +31,7 @@ public class NivelService {
             return nivelRepository.findByNivelPadreIsNull();
         } catch (Exception e) {
             //System.err.println("❌ Error al obtener niveles raíz: " + e.getMessage());
-            return List.of(); // ✅ Devuelve una lista vacía en lugar de romperse
+            return List.of(); // Devuelve una lista vacía en lugar de romperse
         }
     }
 
@@ -52,11 +52,11 @@ public class NivelService {
         List<String> ruta = new ArrayList<>();
 
         while (nivel != null) {
-            ruta.add(0, nivel.getNombre()); // ✅ Agregar al inicio para mantener el orden jerárquico
-            nivel = nivel.getNivelPadre();  // ✅ Subir al nivel padre
+            ruta.add(0, nivel.getNombre()); // Agregar al inicio para mantener el orden jerárquico
+            nivel = nivel.getNivelPadre();  // Subir al nivel padre
         }
 
-        return String.join(" / ", ruta); // ✅ Retorna la ruta en formato "Raíz / Subnivel1 / Subnivel2"
+        return String.join(" / ", ruta); // Retorna la ruta en formato "Raíz / Subnivel1 / Subnivel2"
     }
 
     public int obtenerCantidadMaximaNiveles() {
