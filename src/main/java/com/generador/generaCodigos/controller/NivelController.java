@@ -5,10 +5,8 @@ import com.generador.generaCodigos.service.NivelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/niveles")
@@ -135,5 +133,24 @@ public class NivelController {
     public ResponseEntity<Void> eliminarNivel(@PathVariable Integer id) {
         nivelService.eliminarNivel(id);
         return ResponseEntity.noContent().build();
+    }
+    //endpoint para subir una lista de niveles
+    @PostMapping("/list")
+    public ResponseEntity<List<Nivel>> guardarNivelesEnLote(@RequestBody List<Nivel> niveles) {
+        List<Nivel> nivelesGuardados = new ArrayList<>();
+
+        for (Nivel nivel : niveles) {
+            // Verificar y asignar el nivel padre si existe
+            if (nivel.getNivelPadre() != null && nivel.getNivelPadre().getId() != 0) {
+                Optional<Nivel> padre = nivelService.obtenerNivelPorId(nivel.getNivelPadre().getId());
+                nivel.setNivelPadre(padre.orElse(null));
+            }
+
+            // Guardar el nivel
+            Nivel nivelGuardado = nivelService.guardarNivel(nivel);
+            nivelesGuardados.add(nivelGuardado);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(nivelesGuardados);
     }
 }
