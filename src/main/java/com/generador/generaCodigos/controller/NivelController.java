@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/niveles")
+@RequestMapping("/niveles")
 public class NivelController {
 
     private final NivelService nivelService;
