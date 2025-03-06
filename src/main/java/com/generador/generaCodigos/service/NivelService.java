@@ -24,8 +24,12 @@ public class NivelService {
     public List<Nivel> obtenerNivelesPorPadre(Integer nivelPadreId) {
         return nivelRepository.findByNivelPadreId(nivelPadreId);
     }
+    // Método para obtener nivel por código
+    public Optional<Nivel> obtenerNivelPorCodigo(String codigo) {
+        return nivelRepository.findByCodigo(codigo);
+    }
 
-    // ✅ Nuevo método para obtener niveles raíz (sin padre)
+    // Nuevo método para obtener niveles raíz (sin padre)
     public List<Nivel> obtenerNivelesRaiz() {
         try {
             return nivelRepository.findByNivelPadreIsNull();

@@ -1,6 +1,7 @@
 package com.generador.generaCodigos.controller;
 
 import com.generador.generaCodigos.model.Nivel;
+import com.generador.generaCodigos.repository.NivelRepository;
 import com.generador.generaCodigos.service.NivelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -134,15 +135,23 @@ public class NivelController {
         nivelService.eliminarNivel(id);
         return ResponseEntity.noContent().build();
     }
+
     //endpoint para subir una lista de niveles
     @PostMapping("/list")
-    public ResponseEntity<List<Nivel>> guardarNivelesEnLote(@RequestBody List<Nivel> niveles) {
+    public ResponseEntity<List<Nivel>> guardarNivelesEnLote(@RequestBody List<Map<String, Object>> nivelesData) {
         List<Nivel> nivelesGuardados = new ArrayList<>();
 
-        for (Nivel nivel : niveles) {
-            // Verificar y asignar el nivel padre si existe
-            if (nivel.getNivelPadre() != null && nivel.getNivelPadre().getId() != 0) {
-                Optional<Nivel> padre = nivelService.obtenerNivelPorId(nivel.getNivelPadre().getId());
+        for (Map<String, Object> nivelData : nivelesData) {
+            Nivel nivel = new Nivel();
+            nivel.setCodigo((String) nivelData.get("codigo"));
+            nivel.setNombre((String) nivelData.get("nombre"));
+
+            // Obtener el código del padre
+            String codigoPadre = (String) nivelData.get("nivel_padre_id");
+
+            if (codigoPadre != null && !codigoPadre.isEmpty()) {
+                // Usar el método del servicio
+                Optional<Nivel> padre = nivelService.obtenerNivelPorCodigo(codigoPadre);
                 nivel.setNivelPadre(padre.orElse(null));
             }
 

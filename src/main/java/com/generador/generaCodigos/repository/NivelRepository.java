@@ -6,15 +6,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NivelRepository extends JpaRepository<Nivel, Integer> {
 
-    // ✅ Método para encontrar niveles por ID de padre
+    //Método para encontrar niveles por ID de padre
     List<Nivel> findByNivelPadreId(Integer nivelPadreId);
 
-    // ✅ Método para encontrar los niveles raíz (sin padre)
+    //Método para encontrar los niveles raíz (sin padre)
     List<Nivel> findByNivelPadreIsNull();
+
+    Optional<Nivel> findByCodigo(String codigo);
 
     @Query(value = """
     WITH RECURSIVE NivelRecursivo AS (
